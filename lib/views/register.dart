@@ -1,19 +1,34 @@
+import 'package:edumate/controllers/student_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/route_manager.dart';
 
-class Regsiter extends StatefulWidget {
-  const new({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<Regsiter> createState() => _RegsiterState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _RegsiterState extends State<Regsiter> {
+class _RegisterState extends State<Register> {
   final formkey = GlobalKey<FormState>();
   final TextEditingController namecontroller = TextEditingController();
   final TextEditingController agecontroller = TextEditingController();
   final TextEditingController phonecontroller = TextEditingController();
   final TextEditingController coursecontroller = TextEditingController();
+
+  final StudentController studentController = Get.find<StudentController>();
+
+  @override
+  void dispose() {
+    namecontroller.dispose();
+    agecontroller.dispose();
+    phonecontroller.dispose();
+    coursecontroller.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +103,13 @@ class _RegsiterState extends State<Regsiter> {
               ElevatedButton(
                 onPressed: () {
                   if (formkey.currentState!.validate()) {
-                    print("success");
+                    studentController.register(
+                      namecontroller.text,
+                      agecontroller.text,
+                      phonecontroller.text,
+                      coursecontroller.text,
+                    );
+                    Get.offNamed('/home');
                   }
                 },
                 child: Text("register"),
