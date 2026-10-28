@@ -1,3 +1,4 @@
+import 'package:edumate/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,10 @@ class Edumate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp();
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/register',
+      getPages: approutes(),
+    );
   }
 }
